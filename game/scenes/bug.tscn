@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://images/bugs/spider_128.png" type="Texture" id=1]
+[ext_resource path="res://scripts/bug.gd" type="Script" id=2]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -0.646591, -44.6823, 53.6519, -39.9001, 59.5539, -11.2067, 57.1931, 18.6823, 46.5695, 43.789, 0.533812, 43.789, -52.5842, 40.2023, -59.6666, 15.0956, -60.847, -15.9889, -50.2234, -37.5089 )
+
+[node name="bug_sprite" type="Sprite"]
+
+transform/pos = Vector2( 0.724243, 3.46442 )
+texture = ExtResource( 1 )
+script/script = ExtResource( 2 )
+
+[node name="bug_area2d" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bug_area2d"]
+
+build_mode = 0
+polygon = Vector2Array( -50.2234, -37.5089, -60.847, -15.9889, -59.6666, 15.0956, -52.5842, 40.2023, 0.533812, 43.789, 46.5695, 43.789, 57.1931, 18.6823, 59.5539, -11.2067, 53.6519, -39.9001, -0.646591, -44.6823 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[connection signal="input_event" from="bug_area2d" to="." method="_on_Area2D_input_event"]
+
+
