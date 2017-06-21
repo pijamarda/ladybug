@@ -32,8 +32,8 @@ func _process(delta):
 	#get_node("bug").set_pos(Vector2(0+128/2,800-128/2))
 	time_left = time_left - delta
 	if (time_left < 0):
-		change_direction("random")
-		time_left = 3
+		#change_direction("random")
+		time_left = 10
 	bug_pos += bug_direction * bug_speed * delta
 	get_node("bug").set_pos(bug_pos)
 	
