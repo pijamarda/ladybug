@@ -4,7 +4,7 @@ extends Node2D
 # var a = 2
 # var b = "textvar"
 var bug_direction = Vector2(0.0, 1.0)
-var bug_speed = 200
+var bug_speed = 100
 var max_width = 0
 var max_height = 0 
 var bug_size = Vector2(1.0, 1.0)
@@ -32,8 +32,8 @@ func _process(delta):
 	#get_node("bug").set_pos(Vector2(0+128/2,800-128/2))
 	time_left = time_left - delta
 	if (time_left < 0):
-		#change_direction("random")
-		time_left = 10
+		change_direction("random")
+		time_left = 3
 	bug_pos += bug_direction * bug_speed * delta
 	get_node("bug").set_pos(bug_pos)
 	
@@ -42,16 +42,11 @@ func change_direction(var dir):
 	var rnum = 0
 	var nueva_dir = dir
 	if (dir == "random"):
-		rnum = randi()%11+1
-		print(rnum)
-		if (rnum < 3):
-			nueva_dir = "left"
-		elif (rnum < 6):
-			nueva_dir = "right"
-		elif (rnum < 9):
-			nueva_dir = "up"
-		elif (rnum < 12):
-			nueva_dir = "down"
+		bug_direction = random_direction()
+		print(bug_direction)
+		var new_angle_rad = atan2(bug_direction.x, bug_direction.y)
+		print(new_angle_rad)
+		get_node("bug").set_rot(new_angle_rad)
 		
 	if (nueva_dir == "left"):
 		bug_direction = Vector2(-1.0, 0.0)
@@ -65,5 +60,25 @@ func change_direction(var dir):
 	elif (nueva_dir == "up"):
 		bug_direction = Vector2(0.0, -1.0)
 		get_node("bug").set_rotd( 180 )
-	
 		
+func random_direction():
+	randomize()
+	var nueva_x = 0
+	var nueva_y = 0
+	var rnum1 = rand_range(1,4)
+	var rnum2 = rand_range(1,4)
+	if rnum1 < 2:
+		nueva_x = 0
+	else:
+		nueva_x = 1
+	if rnum2 < 2:
+		nueva_x = -nueva_x
+	rnum1 = rand_range(1,4)
+	rnum2 = rand_range(1,4)
+	if rnum1 < 2:
+		nueva_y = 0
+	else:
+		nueva_y = 1
+	if rnum2 < 2:
+		nueva_y = -nueva_y
+	return Vector2(nueva_x, nueva_y)
