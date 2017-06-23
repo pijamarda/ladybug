@@ -1,8 +1,8 @@
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+# CONSTANTS
+var TIME_FLY = 5
+
 var bug_direction = Vector2(0.0, 1.0)
 var bug_speed = 100
 var max_width = 0
@@ -10,6 +10,8 @@ var max_height = 0
 var bug_size = Vector2(1.0, 1.0)
 var screen_size
 var time_left = 2
+var bug_state
+var time_fly_left = TIME_FLY
 
 func _ready():
 	set_process(true)
@@ -29,11 +31,20 @@ func _process(delta):
 	elif (bug_pos.y > (screen_size.y - (bug_size.y/2) )):
 		change_direction("up")
 	
-	#get_node("bug").set_pos(Vector2(0+128/2,800-128/2))
-	time_left = time_left - delta
-	if (time_left < 0):
-		change_direction("random")
-		time_left = 3
+	bug_state = get_node("bug").bug_state
+	
+	if bug_state == "flying":
+		time_fly_left = time_fly_left - delta
+		if (time_fly_left < 0):
+			get_node("bug").fly_stop()
+			time_fly_left = TIME_FLY
+			get_node("bug").bug_state = "walking"
+		
+	else:
+		time_left = time_left - delta
+		if (time_left < 0):
+			change_direction("random")
+			time_left = 3
 	bug_pos += bug_direction * bug_speed * delta
 	get_node("bug").set_pos(bug_pos)
 	

@@ -11,6 +11,11 @@ func _ready():
 func _on_Area2D_input_event( viewport, event, shape_idx ):
 	if (event.is_action_pressed("click_button")): 
 		#if (event.button_index == BUTTON_LEFT):
-		print("Dentro de mi!")
-		get_node("/root/game").change_direction("random")
-		bug_state = "flying"
+		if bug_state != "flying":
+			print("Dentro de mi!")
+			get_node("animation_fly").play("fly")
+			#get_node("/root/game").change_direction("random")
+			bug_state = "flying"
+			
+func fly_stop():
+	get_node("animation_fly").stop()
