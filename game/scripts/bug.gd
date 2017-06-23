@@ -19,3 +19,5 @@ func _on_Area2D_input_event( viewport, event, shape_idx ):
 			
 func fly_stop():
 	get_node("animation_fly").stop()
+	get_node(".").set_scale(Vector2(1,1))
+	bug_state = "walking"

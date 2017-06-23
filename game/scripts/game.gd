@@ -1,7 +1,7 @@
 extends Node2D
 
 # CONSTANTS
-var TIME_FLY = 5
+var TIME_FLY = 4
 
 var bug_direction = Vector2(0.0, 1.0)
 var bug_speed = 100
@@ -38,7 +38,7 @@ func _process(delta):
 		if (time_fly_left < 0):
 			get_node("bug").fly_stop()
 			time_fly_left = TIME_FLY
-			get_node("bug").bug_state = "walking"
+			
 		
 	else:
 		time_left = time_left - delta
